@@ -7,20 +7,20 @@ class MyTextfield extends StatelessWidget {
   final String myHint;
   final TextEditingController txtController;
   final double radius;
-  final IconData? icon;
-  final bool numberOnly;
+  final IconData icon;
   final int? maxLength;
-  final TextInputType? keyboardType;
+  final TextInputType keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const MyTextfield({
     super.key,
     required this.myHint,
     required this.txtController,
     required this.radius,
-    this.icon,
-    this.numberOnly = false,
+    required this.icon,
     this.maxLength,
-    this.keyboardType,
+    this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   });
 
   @override
@@ -30,19 +30,19 @@ class MyTextfield extends StatelessWidget {
       child: TextField(
         controller: txtController,
         maxLength: maxLength,
-        keyboardType: numberOnly ? TextInputType.number : keyboardType,
-        inputFormatters: numberOnly
-            ? [FilteringTextInputFormatter.digitsOnly]
-            : null,
+        keyboardType: keyboardType,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           labelText: myHint,
           hintText: myHint,
           counterText: '',
           filled: true,
           fillColor: Colors.grey.shade100,
-          prefixIcon: icon != null ? Icon(icon) : null,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          prefixIcon: Icon(icon),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(radius),
           ),

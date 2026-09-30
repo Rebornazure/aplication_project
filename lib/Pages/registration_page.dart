@@ -1,6 +1,7 @@
 import 'package:aplication_project/Components/MyTextField.dart';
 import 'package:aplication_project/Routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -46,8 +47,9 @@ class RegistrationPage extends StatelessWidget {
               txtController: txtumur,
               radius: 12,
               icon: Icons.cake,
-              numberOnly: true,
               maxLength: 3,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             MyTextfield(
               myHint: "Email",
@@ -61,16 +63,18 @@ class RegistrationPage extends StatelessWidget {
               txtController: txtNohp,
               radius: 12,
               icon: Icons.phone,
-              numberOnly: true,
               maxLength: 15,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             MyTextfield(
               myHint: "NIS",
               txtController: txtNIS,
               radius: 12,
               icon: Icons.badge,
-              numberOnly: true,
               maxLength: 12,
+              keyboardType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             const SizedBox(height: 16),
             ElevatedButton(
