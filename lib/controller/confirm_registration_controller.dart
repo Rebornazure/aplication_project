@@ -2,6 +2,12 @@ import 'package:get/get.dart';
 
 class ConfirmRegistrationController extends GetxController {
   late String nama;
+  late String alamat;
+  late String jeniskelamin;
+  late String umur;
+  late String Email;
+  late String Nohp;
+  late String NIS;
 
   @override
   void onInit() {
@@ -9,6 +15,12 @@ class ConfirmRegistrationController extends GetxController {
     super.onInit();
     final arguments = Get.arguments; // menangkap data dari tampilan sebelumnya
     nama = arguments['name'];
+    alamat = arguments['alamat'];
+    jeniskelamin = arguments['jenis kelamin'];
+    umur = arguments['umur'];
+    Email = arguments['Email'];
+    Nohp = arguments['Nohp'];
+    NIS = arguments['NIS'];
     // jenis kelamin dll
   }
 }
