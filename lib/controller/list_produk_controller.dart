@@ -2,7 +2,7 @@ import 'package:aplication_project/Models/produk_model.dart';
 import 'package:get/get.dart';
 
 class ListProdukController extends GetxController {
-  List<ProdukModel> listProduk = [
+  RxList<ProdukModel> listProduk = [
     ProdukModel(
       "Samsung Galaxy S25 Ultra",
       "22.999.000 - Rp 28.999.000",
@@ -48,5 +48,5 @@ class ListProdukController extends GetxController {
       4.7,
       "Google Official Store",
     ),
-  ];
+  ].obs;
 }
