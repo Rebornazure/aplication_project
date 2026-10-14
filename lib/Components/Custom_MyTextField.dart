@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class CustomTextfield extends StatelessWidget {
   final String hint;
   final TextEditingController txtController;
   final double cornerRadius;
   final TextInputType keyboardType;
+  final bool obscureText; // Tambahan opsional untuk password
 
   const CustomTextfield({
     super.key,
@@ -13,6 +13,7 @@ class CustomTextfield extends StatelessWidget {
     required this.txtController,
     this.cornerRadius = 10.0,
     this.keyboardType = TextInputType.text,
+    this.obscureText = false,
   });
 
   @override
@@ -20,9 +21,7 @@ class CustomTextfield extends StatelessWidget {
     return TextField(
       controller: txtController,
       keyboardType: keyboardType,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
-      ],
+      obscureText: obscureText, // Supaya password berupa titik-titik
       decoration: InputDecoration(
         hintText: hint,
         border: OutlineInputBorder(
