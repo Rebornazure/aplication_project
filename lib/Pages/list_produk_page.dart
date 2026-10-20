@@ -1,13 +1,12 @@
 import 'package:aplication_project/Routes.dart';
-import 'package:flutter/services.dart';
 import 'package:aplication_project/Models/produk_model.dart';
 import 'package:aplication_project/controller/list_produk_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ListProdukPage extends StatelessWidget {
   ListProdukPage({super.key});
-
   final controller = Get.put(ListProdukController());
 
   void _goDetail(ProdukModel produk) {
@@ -25,215 +24,127 @@ class ListProdukPage extends StatelessWidget {
     );
   }
 
-  Future<void> _showContextMenu(
-    BuildContext context,
-    Offset position,
-    ProdukModel produk,
-  ) async {
-    final overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
-
-    final selected = await showMenu<String>(
-      context: context,
-      position: RelativeRect.fromRect(
-        position & const Size(1, 1),
-        Offset.zero & overlay.size,
-      ),
-      items: const [
-        PopupMenuItem(
-          value: 'detail',
-          child: ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('Lihat Detail'),
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
-        PopupMenuItem(
-          value: 'salin',
-          child: ListTile(
-            leading: Icon(Icons.copy),
-            title: Text('Salin Nama'),
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
-        PopupMenuItem(
-          value: 'hapus',
-          child: ListTile(
-            leading: Icon(Icons.delete, color: Colors.red),
-            title: Text('Hapus', style: TextStyle(color: Colors.red)),
-            contentPadding: EdgeInsets.zero,
-          ),
-        ),
-      ],
+  void _hapus(ProdukModel produk) {
+    controller.listProduk.remove(produk);
+    Get.snackbar(
+      "Produk Dihapus",
+      "${produk.namaProduk} telah dihapus dari daftar.",
+      snackPosition: SnackPosition.BOTTOM,
     );
-
-    switch (selected) {
-      case 'detail':
-        _goDetail(produk);
-        break;
-      case 'salin':
-        await Clipboard.setData(ClipboardData(text: produk.namaProduk));
-        Get.snackbar(
-          'Disalin',
-          produk.namaProduk,
-          snackPosition: SnackPosition.BOTTOM,
-        );
-        break;
-      case 'hapus':
-        controller.hapusProduk(produk);
-        break;
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: AppBar(
-        title: const Text(
-          "Daftar Smartphone Flagship",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black87,
-        centerTitle: true,
-      ),
-      body: RefreshIndicator(
-        onRefresh: controller.refreshData,
+      backgroundColor: const Color.fromARGB(255, 251, 250, 250),
+      appBar: AppBar(title: const Text("List Produk")),
+      body: Container(
+        margin: const EdgeInsets.all(10),
         child: Obx(
-          () => ListView.separated(
-            physics: const AlwaysScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(16),
-            itemCount: controller.listProduk.length,
-            separatorBuilder: (context, index) => const SizedBox(height: 12),
-            itemBuilder: (context, index) {
-              final produk = controller.listProduk[index];
-              final displayHarga = produk.harga.startsWith("Rp")
-                  ? produk.harga
-                  : "Rp ${produk.harga}";
+          () => RefreshIndicator(
+            onRefresh: controller.refreshProduk,
+            child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
+              itemCount: controller.listProduk.length,
+              itemBuilder: (context, index) {
+                final produk = controller.listProduk[index];
+                final displayHarga = produk.harga.startsWith("Rp")
+                    ? produk.harga
+                    : "Rp ${produk.harga}";
+                Offset tapPosition = Offset.zero;
 
-              return Dismissible(
-                key: ValueKey(produk.namaProduk),
-                direction: DismissDirection.startToEnd,
-                onDismissed: (_) => controller.hapusProduk(produk),
-                background: Container(
-                  decoration: BoxDecoration(
+                return Dismissible(
+                  key: ValueKey(produk.namaProduk),
+                  direction: DismissDirection.startToEnd,
+                  onDismissed: (direction) => _hapus(produk),
+                  background: Container(
                     color: Colors.red,
-                    borderRadius: BorderRadius.circular(16),
+                    child: const Icon(Icons.delete, color: Colors.white),
                   ),
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(left: 20),
-                  child: const Icon(Icons.delete, color: Colors.white),
-                ),
-                child: GestureDetector(
-                  onLongPressStart: (d) =>
-                      _showContextMenu(context, d.globalPosition, produk),
-                  onSecondaryTapDown: (d) =>
-                      _showContextMenu(context, d.globalPosition, produk),
                   child: Card(
-                    elevation: 2,
-                    shadowColor: Colors.black12,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
+                    color: const Color.fromARGB(255, 255, 253, 208),
                     child: InkWell(
-                      borderRadius: BorderRadius.circular(16),
+                      onTapDown: (details) {
+                        tapPosition = details.globalPosition;
+                      },
+                      onLongPress: () {
+                        showMenu(
+                          context: context,
+                          position: RelativeRect.fromLTRB(
+                            tapPosition.dx,
+                            tapPosition.dy,
+                            tapPosition.dx,
+                            tapPosition.dy,
+                          ),
+                          items: [
+                            PopupMenuItem(
+                              child: const Text("Hapus"),
+                              onTap: () => _hapus(produk),
+                            ),
+                            PopupMenuItem(
+                              child: const Text("Detail"),
+                              onTap: () {
+                                _goDetail(produk);
+                                Get.snackbar(
+                                  "Detail Produk",
+                                  "Beralih ke detail produk.",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      },
                       onTap: () => _goDetail(produk),
                       child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Container(
-                                color: Colors.grey[200],
-                                child: Image.network(
-                                  produk.imagePath,
-                                  width: 85,
-                                  height: 85,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) =>
-                                      const SizedBox(
-                                        width: 85,
-                                        height: 85,
-                                        child: Icon(
-                                          Icons.broken_image,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                ),
-                              ),
+                            Image.network(
+                              produk.imagePath,
+                              width: 80,
+                              height: 80,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const SizedBox(
+                                    width: 80,
+                                    height: 80,
+                                    child: Icon(
+                                      Icons.broken_image,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                             ),
-                            const SizedBox(width: 14),
+                            const SizedBox(width: 10),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     produk.namaProduk,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
-                                      fontSize: 15,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black87,
                                     ),
                                   ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    displayHarga,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.green,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.star_rounded,
-                                        size: 18,
-                                        color: Colors.amber,
-                                      ),
-                                      const SizedBox(width: 2),
-                                      Text(
-                                        "${produk.rating}",
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Text(
-                                          "• ${produk.namaToko}",
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey[600],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  Text(displayHarga),
+                                  Text(" ${produk.rating}"),
                                 ],
                               ),
                             ),
                             const Icon(
-                              Icons.chevron_right_rounded,
-                              color: Colors.grey,
+                              CupertinoIcons.chevron_right,
                               size: 24,
+                              color: Colors.grey,
                             ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),
