@@ -2,7 +2,24 @@ import 'package:aplication_project/Models/produk_model.dart';
 import 'package:get/get.dart';
 
 class ListProdukController extends GetxController {
-  RxList<ProdukModel> listProduk = [
+  final RxList<ProdukModel> listProduk = <ProdukModel>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    listProduk.assignAll(_dataAwal());
+  }
+
+  Future<void> refreshData() async {
+    await Future.delayed(const Duration(seconds: 1));
+    listProduk.assignAll(_dataAwal());
+  }
+
+  void hapusProduk(ProdukModel produk) {
+    listProduk.remove(produk);
+  }
+
+  List<ProdukModel> _dataAwal() => [
     ProdukModel(
       "Samsung Galaxy S25 Ultra",
       "22.999.000 - Rp 28.999.000",
@@ -48,5 +65,5 @@ class ListProdukController extends GetxController {
       4.7,
       "Google Official Store",
     ),
-  ].obs;
+  ];
 }
