@@ -11,7 +11,7 @@ class Routes {
   static const String confirmregistration = "/confirmregistration";
   static const String detailproduk = "/detail-produk";
   static const String listproduk = "/list-produk";
-  static const String mainmenu = "/main-menu";
+  static const String mainmenupage = "/mainmenupage";
   // dll,login dan kalkulator
 
   // masukkan ke dalam array yang akan kita pasang ke main.dart
@@ -20,7 +20,7 @@ class Routes {
     GetPage(name: confirmregistration, page: () => ConfirmRegistrationPage()),
     GetPage(name: detailproduk, page: () => DetailProdukPage()),
     GetPage(name: listproduk, page: () => ListProdukPage()),
-    GetPage(name: mainmenu, page: () => MainMenuPage()),
+    GetPage(name: mainmenupage, page: () => MainMenuPage()),
     // other pages here dll
   ];
 }
