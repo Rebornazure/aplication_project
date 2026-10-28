@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:aplication_project/controller/mainmenudrawer_controller.dart';
 import 'package:get/get.dart';
+
+import 'package:aplication_project/controller/mainmenudrawer_controller.dart';
 
 class MainMenuDrawer extends StatelessWidget {
   MainMenuDrawer({super.key});
@@ -20,7 +21,6 @@ class MainMenuDrawer extends StatelessWidget {
           ),
           backgroundColor: const Color.fromARGB(255, 20, 234, 170),
         ),
-
         drawer: NavigationDrawer(
           selectedIndex: menuDrawerController.selectedIndex.value,
           onDestinationSelected: (index) {
@@ -31,17 +31,17 @@ class MainMenuDrawer extends StatelessWidget {
             Padding(
               padding: EdgeInsets.fromLTRB(28, 24, 16, 16),
               child: Text(
-                'MENU SURYA STORE',
+                'SURYA STORE',
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
             NavigationDrawerDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person),
-              label: Text('Profile'),
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: Text('Home'),
             ),
             NavigationDrawerDestination(
               icon: Icon(Icons.history),
@@ -49,16 +49,15 @@ class MainMenuDrawer extends StatelessWidget {
               label: Text('History'),
             ),
             NavigationDrawerDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: Text('Home'),
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person),
+              label: Text('Profile'),
             ),
           ],
         ),
-
         body: IndexedStack(
           index: menuDrawerController.selectedIndex.value,
-          children: menuDrawerController.listPages.cast<Widget>(),
+          children: menuDrawerController.listPages,
         ),
       ),
     );
