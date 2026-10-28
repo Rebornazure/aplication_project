@@ -20,7 +20,6 @@ class homepage extends StatelessWidget {
         foregroundColor: Colors.white,
         elevation: 0,
       ),
-
       body: Obx(
         () => RefreshIndicator(
           onRefresh: controller.refreshProduk,
@@ -32,42 +31,33 @@ class homepage extends StatelessWidget {
                 "Daftar Produk",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-
               const SizedBox(height: 10),
-
               SizedBox(
                 height: 200,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const ClampingScrollPhysics(),
                   itemCount: controller.produkController.listProduk.length,
-
                   itemBuilder: (context, index) {
                     final produk =
                         controller.produkController.listProduk[index];
-
                     final displayHarga = produk.harga.startsWith("Rp")
                         ? produk.harga
                         : "Rp ${produk.harga}";
-
                     return Container(
                       width: 250,
                       margin: const EdgeInsets.only(right: 10),
-
                       child: Card(
                         color: const Color.fromARGB(255, 133, 217, 234),
                         elevation: 3,
                         clipBehavior: Clip.antiAlias,
-
                         child: InkWell(
                           onTapDown: (details) {
                             controller.simpanTapPosition(details);
                           },
-
                           onTap: () {
                             controller.goDetail(produk);
                           },
-
                           onLongPress: () {
                             showMenu(
                               context: context,
@@ -88,7 +78,6 @@ class homepage extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-
                                 const PopupMenuItem(
                                   value: "detail",
                                   child: Row(
@@ -111,18 +100,15 @@ class homepage extends StatelessWidget {
 
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-
                             child: Row(
                               children: [
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
-
                                   child: Image.network(
                                     produk.imagePath,
                                     width: 80,
                                     height: 120,
                                     fit: BoxFit.cover,
-
                                     errorBuilder: (context, error, stackTrace) {
                                       return Container(
                                         width: 80,
@@ -137,15 +123,12 @@ class homepage extends StatelessWidget {
                                     },
                                   ),
                                 ),
-
                                 const SizedBox(width: 10),
-
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
-
                                     children: [
                                       Text(
                                         produk.namaProduk,
@@ -156,9 +139,7 @@ class homepage extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-
                                       const SizedBox(height: 8),
-
                                       Text(
                                         displayHarga,
                                         maxLines: 2,
@@ -169,9 +150,7 @@ class homepage extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-
                                       const SizedBox(height: 6),
-
                                       Row(
                                         children: [
                                           const Icon(

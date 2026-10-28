@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:aplication_project/Routes.dart';
 import 'package:aplication_project/Components/stat_card.dart';
 import 'package:aplication_project/Components/menu_tile.dart'; 
 
@@ -52,12 +51,12 @@ class profilepage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Suhan Hasan",
+                      "Galuh Adjie Abiyyu Akbar",
                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 2),
                     Text(
-                      "example@email.com",
+                      "galuhadjiabiyyuakbar@email.com",
                       style: TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                   ],
