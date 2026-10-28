@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class homepage extends StatelessWidget {
   const homepage({super.key});
 
-  void _goDetail(ProdukModel produk) {
+  void goDetail(ProdukModel produk) {
     Get.toNamed(
       Routes.detailproduk,
       arguments: {
@@ -24,7 +24,6 @@ class homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.put mengembalikan instance yang sama kalau controller sudah ada
     final controller = Get.put(ListProdukController());
 
     return Scaffold(
@@ -51,7 +50,6 @@ class homepage extends StatelessWidget {
               ),
             ),
 
-            // ListView horizontal wajib punya tinggi, makanya dibungkus Container(height)
             Container(
               height: 230,
               child: Obx(
@@ -75,7 +73,7 @@ class homepage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: InkWell(
-                          onTap: () => _goDetail(produk),
+                          onTap: () => goDetail(produk),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
