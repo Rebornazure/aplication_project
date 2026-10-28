@@ -2,6 +2,7 @@ import 'package:aplication_project/Pages/confirm_registration_page.dart';
 import 'package:aplication_project/Pages/list_produk_page.dart';
 import 'package:aplication_project/Pages/registration_page.dart';
 import 'package:aplication_project/Pages/detail_produk_page.dart';
+import 'package:aplication_project/Pages/mainmenu_drawer.dart';
 import 'package:aplication_project/Pages/main_menu_page.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,7 @@ class Routes {
   static const String detailproduk = "/detail-produk";
   static const String listproduk = "/list-produk";
   static const String mainmenupage = "/mainmenupage";
+  static const String mainmenudrawer = "/mainmenudrawer";
   // dll,login dan kalkulator
 
   // masukkan ke dalam array yang akan kita pasang ke main.dart
@@ -21,6 +23,7 @@ class Routes {
     GetPage(name: detailproduk, page: () => DetailProdukPage()),
     GetPage(name: listproduk, page: () => ListProdukPage()),
     GetPage(name: mainmenupage, page: () => MainMenuPage()),
+    GetPage(name: mainmenudrawer, page: () => MainMenuDrawer())
     // other pages here dll
   ];
 }
