@@ -1,15 +1,17 @@
+import 'package:aplication_project/controller/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:aplication_project/Components/formlabel.dart';
 import 'package:aplication_project/Components/custom_text_field.dart';
 import 'package:aplication_project/Components/primary_button.dart';
 import 'package:aplication_project/Components/social_button.dart';
 import 'package:aplication_project/Components/custom_image.dart';
+import 'package:get/get.dart';
 
 class LoginClonefixs extends StatelessWidget {
   LoginClonefixs({super.key});
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final controller = Get.put(LoginController());
+
   final ValueNotifier<bool> obscureTextNotifier = ValueNotifier<bool>(true);
 
   final String logoRuangguruUrl =
@@ -75,7 +77,7 @@ class LoginClonefixs extends StatelessWidget {
 
               const FormLabel(label: 'Email atau Nomor HP'),
               CustomTextField(
-                controller: emailController,
+                controller: controller.txtUsername  ,
                 hintText: 'Contoh: email@gmail.com',
               ),
 
@@ -86,7 +88,7 @@ class LoginClonefixs extends StatelessWidget {
                 valueListenable: obscureTextNotifier,
                 builder: (context, isObscured, child) {
                   return CustomTextField(
-                    controller: passwordController,
+                    controller: controller.txtPassword,
                     hintText: 'Masukkan kata sandi',
                     obscureText: isObscured,
                     suffixIcon: IconButton(
@@ -124,6 +126,22 @@ class LoginClonefixs extends StatelessWidget {
               PrimaryButton(text: 'Masuk', onPressed: () {}),
 
               const SizedBox(height: 24),
+
+              Obx(
+                ()=> controller.isLoading.value
+                ? Center(child: CircularProgressIndicator(),)
+                : Container(
+                margin: const EdgeInsets.symmetric(horizontal: 30),
+                width: double.infinity,
+                height: 50,
+                child: OutlinedButton(
+                onPressed: () {
+                controller.login();
+              },
+                child: const Text("Loginn ruang guru"),
+              ),
+              ),
+            ),
 
               Row(
                 children: [
