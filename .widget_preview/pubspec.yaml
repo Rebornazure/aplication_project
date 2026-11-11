@@ -16,7 +16,7 @@ dependencies:
   path: ^1.9.1
   stack_trace: ^1.12.2
   url_launcher: ^6.3.3
-  web: ^1.1.1
+  web: ^1.1.2
   webview_flutter: ^4.14.1
   webview_flutter_web: ^0.2.3+4
 flutter:

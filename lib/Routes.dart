@@ -5,20 +5,20 @@ import 'package:aplication_project/Pages/registration_page.dart';
 import 'package:aplication_project/Pages/detail_produk_page.dart';
 import 'package:aplication_project/Pages/mainmenu_drawer.dart';
 import 'package:aplication_project/Pages/main_menu_page.dart';
+import 'package:aplication_project/menu/homedart_api.dart';
+
 import 'package:get/get.dart';
 
 class Routes {
-  // list halaman atau pages yang ada di aplikasi
   static const String registration = "/registration";
   static const String confirmregistration = "/confirmregistration";
   static const String detailproduk = "/detail-produk";
   static const String listproduk = "/list-produk";
   static const String mainmenupage = "/mainmenupage";
   static const String mainmenudrawer = "/mainmenudrawer";
+  static const String homepage = "/homepage";
   static const String login = "/login";
-  // dll,login dan kalkulator
 
-  // masukkan ke dalam array yang akan kita pasang ke main.dart
   static final mypages = [
     GetPage(name: registration, page: () => RegistrationPage()),
     GetPage(name: confirmregistration, page: () => ConfirmRegistrationPage()),
@@ -26,7 +26,7 @@ class Routes {
     GetPage(name: listproduk, page: () => ListProdukPage()),
     GetPage(name: mainmenupage, page: () => MainMenuPage()),
     GetPage(name: mainmenudrawer, page: () => MainMenuDrawer()),
+    GetPage(name: homepage, page: () => apihomedart()),
     GetPage(name: login, page: () => LoginClonefixs()),
-    // other pages here dll
   ];
 }

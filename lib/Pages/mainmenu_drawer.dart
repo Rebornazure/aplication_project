@@ -1,14 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:aplication_project/menu/homedart_api.dart';
 import 'package:aplication_project/controller/mainmenudrawer_controller.dart';
 
 class MainMenuDrawer extends StatelessWidget {
   MainMenuDrawer({super.key});
 
-  final MainMenuDrawerController menuDrawerController =
-      Get.put(MainMenuDrawerController());
+  final MainMenuDrawerController menuDrawerController = Get.put(
+    MainMenuDrawerController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +32,7 @@ class MainMenuDrawer extends StatelessWidget {
               padding: EdgeInsets.fromLTRB(28, 24, 16, 16),
               child: Text(
                 'SURYA STORE',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
             NavigationDrawerDestination(
@@ -52,6 +49,11 @@ class MainMenuDrawer extends StatelessWidget {
               icon: Icon(Icons.person_outline),
               selectedIcon: Icon(Icons.person),
               label: Text('Profile'),
+            ),
+            NavigationDrawerDestination(
+              icon: Icon(Icons.shopping_bag_outlined),
+              selectedIcon: Icon(Icons.shopping_bag),
+              label: Text('Produk API'),
             ),
           ],
         ),
